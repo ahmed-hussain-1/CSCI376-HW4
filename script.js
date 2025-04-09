@@ -130,15 +130,17 @@ function handleNextButton() {
 
 function handleHintButton() {
   const buttons = Array.from(answerButtonsElement.children);
-  const incorrectButtons = buttons.filter(btn => btn.dataset.correct !== "true" && !btn.disabled);
+  const incorrectButtons = buttons.filter(btn => btn.dataset.correct !== "true" && !btn.classList.contains("wrong"));
 
   if (incorrectButtons.length > 0) {
-    // choose a random index and hide the button.
     const randomIndex = Math.floor(Math.random() * incorrectButtons.length);
-    incorrectButtons[randomIndex].style.display = "none";
+    const chosenButton = incorrectButtons[randomIndex];
+    
+    chosenButton.classList.add("wrong");
+    chosenButton.disabled = true;
+
   }
 
-  // Optionally disable hint after use - Users can use at most 1 hint. 
   hintButton.style.display = "none";
 }
 
